@@ -8,12 +8,13 @@ import (
 	"github.com/kiraleos/aoc-2024/util"
 )
 
+const DAY int = 1
+
 func main() {
-	day := 1
-	lines := fetchInputLines(day)
+	lines := fetchInputLines(DAY)
 	
 	firstColumn, secondColumn := splitToSortedColumns(lines)
-	totalDistance := calculateTotalDistance(firstColumn, secondColumn)
+	totalDistance := calculateSumOfDistanceBetweenColumns(firstColumn, secondColumn)
 
 	println(totalDistance)
 }
@@ -31,7 +32,7 @@ func fetchInputLines(day int) []string {
 	return lines
 }
 
-func calculateTotalDistance(firstColumn []int, secondColumn []int) int {
+func calculateSumOfDistanceBetweenColumns(firstColumn []int, secondColumn []int) int {
 	totalDistance := 0
 	for i := 0; i < len(firstColumn); i++ {
 		distance := Abs(firstColumn[i] - secondColumn[i])
