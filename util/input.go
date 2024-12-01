@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func ReadLines(input string) ([]string, error) {
+func SplitInputToLines(input string) ([]string, error) {
 	var lines []string
 
 	scanner := bufio.NewScanner(strings.NewReader(input))
