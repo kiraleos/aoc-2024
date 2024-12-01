@@ -10,15 +10,37 @@ import (
 
 func main() {
 	day := 1
+	lines := fetchInputLines(day)
+	
+	firstColumn, secondColumn := splitToSortedColumns(lines)
+	totalDistance := calculateTotalDistance(firstColumn, secondColumn)
+
+	println(totalDistance)
+}
+
+func fetchInputLines(day int) []string {
 	input, err := util.FetchInput(day)
 	if err != nil {
 		panic(err)
 	}
-	
+
 	lines, err := util.SplitInputToLines(input)
 	if err != nil {
 		panic(err)
 	}
+	return lines
+}
+
+func calculateTotalDistance(firstColumn []int, secondColumn []int) int {
+	totalDistance := 0
+	for i := 0; i < len(firstColumn); i++ {
+		distance := Abs(firstColumn[i] - secondColumn[i])
+		totalDistance += distance
+	}
+	return totalDistance
+}
+
+func splitToSortedColumns(lines []string) ([]int, []int) {
 	var firstColumn []int
 	var secondColumn []int
 
@@ -32,7 +54,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-			
+
 		firstColumn = append(firstColumn, num1)
 		secondColumn = append(secondColumn, num2)
 	}
@@ -44,12 +66,7 @@ func main() {
 		return secondColumn[i] < secondColumn[j]
 	})
 
-	totalDistance := 0
-	for i := 0; i < len(firstColumn); i++ {
-		distance := Abs(firstColumn[i] - secondColumn[i])
-		totalDistance += distance
-	}
-	println(totalDistance)
+	return firstColumn, secondColumn
 }
 
 func Abs(x int) int {
