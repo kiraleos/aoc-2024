@@ -11,7 +11,7 @@ import (
 const DAY int = 1
 
 func main() {
-	lines := fetchInputLines(DAY)
+	lines := util.FetchInputLines(DAY)
 	
 	part1 := solvePart1(lines)
 	part2 := solvePart2(lines)
@@ -51,19 +51,6 @@ func calculateFrequencies(firstColumn []int, secondColumn []int) map[int]int {
 		}
 	}
 	return frequencies
-}
-
-func fetchInputLines(day int) []string {
-	input, err := util.FetchInput(day)
-	if err != nil {
-		panic(err)
-	}
-
-	lines, err := util.SplitInputToLines(input)
-	if err != nil {
-		panic(err)
-	}
-	return lines
 }
 
 func calculateSumOfDistanceBetweenColumns(firstColumn []int, secondColumn []int) int {

@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func SplitInputToLines(input string) ([]string, error) {
+func splitInputToLines(input string) ([]string, error) {
 	var lines []string
 
 	scanner := bufio.NewScanner(strings.NewReader(input))
@@ -24,7 +24,7 @@ func SplitInputToLines(input string) ([]string, error) {
 	return lines, nil
 }
 
-func FetchInput(day int) (string, error) {
+func fetchInput(day int) (string, error) {
 	cachedInput, err := GetCachedInput(day)
 	if err != nil {
 		return "", fmt.Errorf("error checking cache: %w", err)
@@ -72,4 +72,17 @@ func FetchInput(day int) (string, error) {
 	}
 
 	return input, nil
+}
+
+func FetchInputLines(day int) []string {
+	input, err := FetchInput(day)
+	if err != nil {
+		panic(err)
+	}
+
+	lines, err := SplitInputToLines(input)
+	if err != nil {
+		panic(err)
+	}
+	return lines
 }
