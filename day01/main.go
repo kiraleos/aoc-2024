@@ -56,7 +56,7 @@ func calculateFrequencies(firstColumn []int, secondColumn []int) map[int]int {
 func calculateSumOfDistanceBetweenColumns(firstColumn []int, secondColumn []int) int {
 	totalDistance := 0
 	for i := 0; i < len(firstColumn); i++ {
-		distance := Abs(firstColumn[i] - secondColumn[i])
+		distance := util.Abs(firstColumn[i] - secondColumn[i])
 		totalDistance += distance
 	}
 	return totalDistance
@@ -89,11 +89,4 @@ func splitToSortedColumns(lines []string) ([]int, []int) {
 	})
 
 	return firstColumn, secondColumn
-}
-
-func Abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
 }
