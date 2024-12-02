@@ -75,12 +75,12 @@ func fetchInput(day int) (string, error) {
 }
 
 func FetchInputLines(day int) []string {
-	input, err := FetchInput(day)
+	input, err := fetchInput(day)
 	if err != nil {
 		panic(err)
 	}
 
-	lines, err := SplitInputToLines(input)
+	lines, err := splitInputToLines(input)
 	if err != nil {
 		panic(err)
 	}
