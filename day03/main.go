@@ -39,9 +39,8 @@ func solvePart2(memory string) int {
 	regex, _ := regexp.Compile(pattern)
 	matches := regex.FindAllStringSubmatch(memory, -1)
 
-	var extractedNumbers [][]int
 	addNumbers := true
-
+	mulSum := 0
 	for _, match := range matches {
 		if match[0] == "do()" {
 			addNumbers = true
@@ -52,13 +51,8 @@ func solvePart2(memory string) int {
 		if addNumbers {
 			num1, _ := strconv.Atoi(match[1])
 			num2, _ := strconv.Atoi(match[2])
-			extractedNumbers = append(extractedNumbers, []int{num1, num2})
+			mulSum += num1 * num2
 		}
-	}
-
-	mulSum := 0
-	for _, nums := range extractedNumbers {
-		mulSum += nums[0] * nums[1]
 	}
 
 	return mulSum
