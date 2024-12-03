@@ -86,3 +86,12 @@ func FetchInputLines(day int) []string {
 	}
 	return lines
 }
+
+func FetchInput(day int) string {
+	input, err := fetchInput(day)
+	if err != nil {
+		panic(err)
+	}
+
+	return input
+}
