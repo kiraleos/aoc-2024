@@ -39,16 +39,16 @@ func solvePart2(memory string) int {
 	regex, _ := regexp.Compile(pattern)
 	matches := regex.FindAllStringSubmatch(memory, -1)
 
-	addNumbers := true
+	doMuls := true
 	mulSum := 0
 	for _, match := range matches {
 		if match[0] == "do()" {
-			addNumbers = true
+			doMuls = true
 		} else if match[0] == "don't()" {
-			addNumbers = false
+			doMuls = false
 		}
 
-		if addNumbers {
+		if doMuls {
 			num1, _ := strconv.Atoi(match[1])
 			num2, _ := strconv.Atoi(match[2])
 			mulSum += num1 * num2
