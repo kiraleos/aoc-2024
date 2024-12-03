@@ -20,7 +20,23 @@ func main() {
 }
 
 func solvePart1(lines []string) int {
-	return countValidReports(lines)
+	numOfSafeReports := 0
+	for _, line := range lines {
+		reportsStr := strings.Split(line, " ")
+		report := make([]int, len(reportsStr))
+		for i, reportStr := range reportsStr {
+			level, err := strconv.Atoi(reportStr)
+			if err != nil {
+				panic("failed to parse level")
+			}
+			report[i] = level
+		}
+		if isReportValid(report) {
+			numOfSafeReports++
+		}
+	}
+
+	return numOfSafeReports
 }
 
 func isReportValid(report []int) bool {
@@ -58,10 +74,6 @@ func isDifferenceValid(i int, j int) bool {
 }
 
 func solvePart2(lines []string) int {
-	return countValidReports(lines)
-}
-
-func countValidReports(lines []string) int {
 	numOfSafeReports := 0
 	for _, line := range lines {
 		reportsStr := strings.Split(line, " ")
@@ -73,13 +85,26 @@ func countValidReports(lines []string) int {
 			}
 			report[i] = level
 		}
-		// allPossibleReports := ...
-		// for possibleReport in range possibleReports
-		// ...
-		if isReportValid(report) {
-			numOfSafeReports++
+		allPossibleReports := generateReportConfigurations(report)
+		for _, possibleReport := range allPossibleReports {
+			if isReportValid(possibleReport) {
+				numOfSafeReports++
+				break
+			}
 		}
 	}
 
 	return numOfSafeReports
+}
+
+func generateReportConfigurations(reports []int) [][]int {
+	var result [][]int
+
+	for i := range reports {
+		config := append([]int{}, reports[:i]...)
+		config = append(config, reports[i+1:]...)
+		result = append(result, config)
+	}
+
+	return result
 }
