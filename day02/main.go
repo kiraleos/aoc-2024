@@ -73,6 +73,9 @@ func countValidReports(lines []string) int {
 			}
 			report[i] = level
 		}
+		// allPossibleReports := ...
+		// for possibleReport in range possibleReports
+		// ...
 		if isReportValid(report) {
 			numOfSafeReports++
 		}
