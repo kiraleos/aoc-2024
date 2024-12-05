@@ -95,3 +95,12 @@ func FetchInput(day int) string {
 
 	return input
 }
+
+func FetchInput2DCharArray(day int) [][]rune {
+	lines := FetchInputLines(day)
+	grid := make([][]rune, len(lines))
+	for i, line := range lines {
+		grid[i] = []rune(line)
+	}
+	return grid
+}
