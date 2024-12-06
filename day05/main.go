@@ -25,7 +25,7 @@ func parseInput(input string) (pageOrder [][]int, updates [][]int) {
 	parts := strings.Split(input, "\n\n")
 	pageOrderStr := strings.Split(parts[0], "\n")
 	pageOrder = make([][]int, len(pageOrderStr))
-	
+
 	for i, line := range pageOrderStr {
 		pageOrder[i] = make([]int, 2)
 		pages := strings.Split(line, "|")
@@ -47,9 +47,45 @@ func parseInput(input string) (pageOrder [][]int, updates [][]int) {
 	return pageOrder, updates[:len(updates)-1]
 }
 
-
 func solvePart1(pageOrder [][]int, updates [][]int) int {
-	return 1
+	pageOrders := make(map[int][]int)
+	for _, pages := range pageOrder {
+		pageOrders[pages[0]] = append(pageOrders[pages[0]], pages[1])
+	}
+	correctUpdates := make([]bool, len(updates))
+	for i := range updates {
+		correctUpdates[i] = true
+	}
+
+	for _, update := range updates {
+		for i, currPageInUpdate := range update {
+			if i == 0 {
+				continue
+			}
+			pagesBefore := update[:i]
+			for page := range pagesBefore {
+				for _, pageOrder := range pageOrders[currPageInUpdate] {
+					if pageOrder == page {
+						correctUpdates[i] = false
+					}
+				}
+			}
+		}
+	}
+
+	middlePageSum := 0
+
+	for i, update := range updates {
+		if correctUpdates[i] {
+			if len(update) % 2 == 0 {
+				middlePageSum += update[len(update)/2]
+			} else {
+				middlePageSum += update[len(update)/2+1]
+			}
+		}
+	}
+
+	return middlePageSum
 }
 
 func solvePart2(pageOrder [][]int, updates [][]int) int {
